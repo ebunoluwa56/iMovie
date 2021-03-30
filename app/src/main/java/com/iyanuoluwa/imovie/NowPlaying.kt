@@ -1,7 +1,6 @@
 package com.iyanuoluwa.imovie
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +75,7 @@ class NowPlaying : Fragment() {
                val response = api.getMoviesPlaying()
                for (movies in response.results) {
                    Log.i("NowPlayingFragment", "Result = $movies")
-                   addToList(movies.originalTitle, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
+                   addToList(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
                }
                withContext(Dispatchers.Main) {
                    setUpRecyclerView()

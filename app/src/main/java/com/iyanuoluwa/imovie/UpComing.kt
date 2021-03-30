@@ -61,7 +61,8 @@ class UpComing : Fragment() {
             try {
                 val response2 = upcomingApi.getUpcomingMovies()
                 for (movies2 in response2.results) {
-                    addToList2(movies2.originalTitle, "http://image.tmdb.org/t/p/w500${movies2.posterPath}")
+                    Log.i("UpcomingFragment", "Result = $movies2")
+                    addToList2(movies2.title, "http://image.tmdb.org/t/p/w500${movies2.posterPath}")
                 }
                 withContext(Dispatchers.Main) {
                     setUpRecyclerView()
