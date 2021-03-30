@@ -27,11 +27,7 @@ const val BASE_URL = "https://api.themoviedb.org/3/"
 
 class NowPlaying : Fragment() {
 
-    lateinit var countDownTimer: CountDownTimer
-
     private var textView: TextView? = null
-    private var page: Int = 1
-    private var limit: Int = 20
     private var playingRecyclerView: RecyclerView? =null
     private var gridLayoutManager: GridLayoutManager? = null
     private var titleList = mutableListOf<String>()
@@ -48,7 +44,6 @@ class NowPlaying : Fragment() {
         textView = view.findViewById(R.id.playing)
         playingRecyclerView = view.findViewById(R.id.playing_recycler_view)
         gridLayoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-        getMovies(page, limit)
         return view
 
     }
@@ -66,10 +61,10 @@ class NowPlaying : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        getMovies()
     }
 
-    private fun getMovies(page: Int, limit: Int) {
+    private fun getMovies() {
         val api = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -78,7 +73,7 @@ class NowPlaying : Fragment() {
 
         GlobalScope.launch(Dispatchers.IO) {
            try {
-               val response = api.getMoviesPlaying(page, limit)
+               val response = api.getMoviesPlaying()
                for (movies in response.results) {
                    Log.i("NowPlayingFragment", "Result = $movies")
                    addToList(movies.originalTitle, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
