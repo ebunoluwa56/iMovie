@@ -1,6 +1,7 @@
 package com.iyanuoluwa.imovie.data
 
 import com.iyanuoluwa.imovie.api.MovieJson
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +11,5 @@ import retrofit2.http.Query
 
 interface ApiNowPlaying {
     @GET("movie/now_playing?api_key=68f286331e8795bd4addf043c1e8423d&language=en-US")
-    suspend fun getMoviesPlaying(): MovieJson
+    fun getMoviesPlaying(): Call<MovieJson>
 }

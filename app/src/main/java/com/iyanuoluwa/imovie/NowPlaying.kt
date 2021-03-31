@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.adapter.MovieAdapter
+import com.iyanuoluwa.imovie.api.MovieJson
 import com.iyanuoluwa.imovie.data.ApiNowPlaying
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -70,20 +70,21 @@ class NowPlaying : Fragment() {
                 .build()
                 .create(ApiNowPlaying::class.java)
 
-        GlobalScope.launch(Dispatchers.IO) {
-           try {
-               val response = api.getMoviesPlaying()
-               for (movies in response.results) {
-                   Log.i("NowPlayingFragment", "Result = $movies")
-                   addToList(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
-               }
-               withContext(Dispatchers.Main) {
-                   setUpRecyclerView()
-               }
-           } catch (e : Exception) {
-               Log.e("NowPlayingFragment", e.toString())
-           }
-        }
+        val data = api.getMoviesPlaying()
+        data.enqueue(object : Callback<MovieJson?> {
+            override fun onResponse(call: Call<MovieJson?>, response: Response<MovieJson?>) {
+                val responseBody = response.body()!!
+                for (movies in responseBody.results) {
+                    Log.i("PlayingFragment", "Result = $movies")
+                    addToList(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
+                }
+                setUpRecyclerView()
+            }
+
+            override fun onFailure(call: Call<MovieJson?>, t: Throwable) {
+                Log.e("NowPlayingFragment", t.toString())
+            }
+        })
 
     }
 
