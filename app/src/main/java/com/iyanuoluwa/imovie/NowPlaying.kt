@@ -89,24 +89,4 @@ class NowPlaying : Fragment() {
     }
 
 
-//    private fun getMovies() {
-//        val api = Retrofit.Builder()
-//            .baseUrl(BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//            .create(TmbdMovies::class.java)
-//
-//        GlobalScope.launch(Dispatchers.IO) {
-//            val response = api.getMoviePlaying().awaitResponse()
-//            if (response.isSuccessful) {
-//                val data = response.body()!!
-//                Log.d(TAG, data.results.toString())
-//
-//                withContext(Dispatchers.Main) {
-//                    textView?.text = data.dates.toString()
-//                }
-//            }
-//        }
-//    }
-
 }

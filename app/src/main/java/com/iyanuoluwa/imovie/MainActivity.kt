@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.addFragment(popularFragment)
         viewPagerAdapter.addFragment(topRatedFragment)
         viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 3
     }
 
 
