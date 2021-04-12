@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +33,10 @@ class NowPlaying : Fragment() {
     private var gridLayoutManager: GridLayoutManager? = null
     private var titleList = mutableListOf<String>()
     private var imageList = mutableListOf<String>()
+    private var nestedScrollView: NestedScrollView? = null
+    private var progressBar: ProgressBar? = null
+    private var page: Int = 1
+    private var limit: Int = 20
 
 
 
@@ -43,6 +49,8 @@ class NowPlaying : Fragment() {
         textView = view.findViewById(R.id.playing)
         playingRecyclerView = view.findViewById(R.id.playing_recycler_view)
         gridLayoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+        nestedScrollView = view.findViewById(R.id.scroll_view_now)
+        progressBar = view.findViewById(R.id.progress_bar_now)
         return view
 
     }
@@ -60,25 +68,37 @@ class NowPlaying : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getMovies()
+        getMovies(page, limit)
+        nestedScrollView?.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
+            override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
+                if (scrollY == (v?.getChildAt(0)?.measuredHeight)?.minus(v?.measuredHeight!!)) {
+                    page++
+                    progressBar?.visibility = View.VISIBLE
+                    getMovies(page, limit)
+                }
+            }
+        })
     }
 
-    private fun getMovies() {
+    private fun getMovies(page: Int, limit: Int) {
         val api = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiNowPlaying::class.java)
 
-        val data = api.getMoviesPlaying()
+        val data = api.getMoviesPlaying(page, limit)
         data.enqueue(object : Callback<MovieJson?> {
             override fun onResponse(call: Call<MovieJson?>, response: Response<MovieJson?>) {
-                val responseBody = response.body()!!
-                for (movies in responseBody.results) {
-                    Log.i("PlayingFragment", "Result = $movies")
-                    addToList(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
+                if (response.isSuccessful && response.body() != null) {
+                    progressBar?.visibility = View.GONE
+                    val responseBody = response.body()!!
+                    for (movies in responseBody.results) {
+                        Log.i("PlayingFragment", "Result = $movies")
+                        addToList(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
+                    }
+                    setUpRecyclerView()
                 }
-                setUpRecyclerView()
             }
 
             override fun onFailure(call: Call<MovieJson?>, t: Throwable) {

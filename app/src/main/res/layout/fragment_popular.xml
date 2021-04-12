@@ -16,11 +16,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/popular_recycler_view"
-        android:padding="12dp"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view_popular"
         android:layout_width="match_parent"
-        tools:listitem="@layout/movies_list"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popular_recycler_view"
+                android:padding="12dp"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/movies_list"
+                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"
+                tools:targetApi="lollipop" />
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress_bar_popular"/>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
