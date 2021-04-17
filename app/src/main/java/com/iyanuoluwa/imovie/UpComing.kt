@@ -87,7 +87,7 @@ class UpComing : Fragment() {
                     val responseBody = response.body()!!
                     for (movies in responseBody.results) {
                         Log.i("UpcomingFragment", "Result = $movies")
-                        addToList2(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview)
+                        addToList2(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview)
                     }
                     setUpRecyclerView()
                 }

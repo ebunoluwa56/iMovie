@@ -97,7 +97,7 @@ class NowPlaying : Fragment() {
                     val responseBody = response.body()!!
                     for (movies in responseBody.results) {
                         Log.i("PlayingFragment", "Result = $movies")
-                        addToList(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview)
+                        addToList(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview)
                     }
                     setUpRecyclerView()
                 }
