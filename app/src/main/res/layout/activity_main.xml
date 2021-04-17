@@ -10,7 +10,7 @@
 
 
 
-    <androidx.viewpager.widget.ViewPager
+    <com.iyanuoluwa.imovie.custom.NaughtyPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_nav"
