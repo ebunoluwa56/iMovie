@@ -32,8 +32,8 @@ class MovieAdapter(
 
         holder.names.text = titles[position]
         val circularProgressDrawable = CircularProgressDrawable(context)
-        //circularProgressDrawable.strokeWidth = 10f
-        circularProgressDrawable.centerRadius = 20f
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
 
         Glide.with(holder.images)
