@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nowPlaying -> viewPager.currentItem = 0
-                R.id.upcoming -> viewPager.currentItem = 1
-                R.id.popular -> viewPager.currentItem = 2
-                R.id.topRated -> viewPager.currentItem = 3
+                R.id.nowPlaying -> viewPager.setCurrentItem(0, false)
+                R.id.upcoming -> viewPager.setCurrentItem(1, false)
+                R.id.popular -> viewPager.setCurrentItem(2, false)
+                R.id.topRated -> viewPager.setCurrentItem(3, false)
             }
             false
         }
