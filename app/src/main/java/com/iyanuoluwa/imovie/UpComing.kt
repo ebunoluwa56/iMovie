@@ -28,8 +28,9 @@ class UpComing : Fragment() {
 
     private var upcomingRecyclerView: RecyclerView? =null
     private var gridLayoutManager: GridLayoutManager? = null
-    private var titleList2 = mutableListOf<String>()
-    private var imageList2 = mutableListOf<String>()
+    private var titleList = mutableListOf<String>()
+    private var imageList = mutableListOf<String>()
+    private var plotList = mutableListOf<String>()
     private var nestedScrollView: NestedScrollView? = null
     private var progressBar: ProgressBar? = null
     private var page: Int = 1
@@ -61,14 +62,15 @@ class UpComing : Fragment() {
         })
     }
 
-    private fun addToList2(title: String, image: String) {
-        titleList2.add(title)
-        imageList2.add(image)
+    private fun addToList2(title: String, image: String, plot: String) {
+        titleList.add(title)
+        imageList.add(image)
+        plotList.add(plot)
     }
 
     private fun setUpRecyclerView() {
         upcomingRecyclerView?.layoutManager = gridLayoutManager
-        upcomingRecyclerView?.adapter = context?.let { MovieAdapter(it, titleList2, imageList2) }
+        upcomingRecyclerView?.adapter = context?.let { MovieAdapter(it, titleList, imageList, plotList) }
     }
 
     private fun getUpcomingMovies(page: Int, limit: Int) {
@@ -85,7 +87,7 @@ class UpComing : Fragment() {
                     val responseBody = response.body()!!
                     for (movies in responseBody.results) {
                         Log.i("UpcomingFragment", "Result = $movies")
-                        addToList2(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}")
+                        addToList2(movies.title, "http://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview)
                     }
                     setUpRecyclerView()
                 }

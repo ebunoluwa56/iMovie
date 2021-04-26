@@ -16,7 +16,8 @@ import com.iyanuoluwa.imovie.api.Result
 
 class MovieAdapter(var context: Context,
                    var titles: List<String>,
-                   var image: List<String>) :
+                   var image: List<String>,
+                   var plot: List<String>) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,7 +38,7 @@ class MovieAdapter(var context: Context,
     }
 
 
-    class ViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
         var images: ImageView = itemView.findViewById(R.id.movie_image)
         var names: TextView = itemView.findViewById(R.id.movie_name)
 
@@ -45,6 +46,9 @@ class MovieAdapter(var context: Context,
             itemView.setOnClickListener {
                 val position: Int = adapterPosition
                 val intent = Intent(context, DetailsActivity::class.java)
+                intent.putExtra("image", image[position])
+                intent.putExtra("plot", plot[position])
+                intent.putExtra("title", titles[position])
                 context.startActivity(intent)
             }
         }
