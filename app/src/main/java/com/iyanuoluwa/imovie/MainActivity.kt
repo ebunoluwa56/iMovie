@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.iyanuoluwa.imovie.custom.NaughtyPager
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        val viewPager = findViewById<ViewPager>(R.id.view_pager)
+        val viewPager = findViewById<NaughtyPager>(R.id.view_pager)
 
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.addFragmentToList(nowPlayingFragment)
@@ -36,18 +37,13 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 3
-        viewPager.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                return true
-            }
-        })
 
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nowPlaying -> viewPager.currentItem = 0
-                R.id.upcoming -> viewPager.currentItem = 1
-                R.id.popular -> viewPager.currentItem = 2
-                R.id.topRated -> viewPager.currentItem = 3
+                R.id.nowPlaying -> viewPager.setCurrentItem(0, false)
+                R.id.upcoming -> viewPager.setCurrentItem(1, false)
+                R.id.popular -> viewPager.setCurrentItem(2, false)
+                R.id.topRated -> viewPager.setCurrentItem(3, false)
             }
             false
         }

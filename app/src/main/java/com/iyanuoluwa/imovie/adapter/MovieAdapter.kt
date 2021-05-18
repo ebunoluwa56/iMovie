@@ -8,29 +8,42 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.iyanuoluwa.imovie.DetailsActivity
 import com.iyanuoluwa.imovie.R
-import com.iyanuoluwa.imovie.api.Result
 
-class MovieAdapter(var context: Context,
-                   var titles: List<String>,
-                   var image: List<String>,
-                   var plot: List<String>) :
+class MovieAdapter(
+    var context: Context,
+    var titles: List<String>,
+    var imageList: List<String>,
+    var plot: List<String>
+) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.movies_list, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.movies_list, parent, false)
         return ViewHolder(itemView, context)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.names.text = titles[position]
+        val circularProgressDrawable = CircularProgressDrawable(context)
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
+
         Glide.with(holder.images)
-                .load(image[position])
-                .into(holder.images)
+            .load(imageList[position])
+            .apply(
+                RequestOptions().placeholder(circularProgressDrawable)
+                    .error(R.drawable.ic_launcher_foreground)
+            )
+            .fitCenter()
+            .into(holder.images)
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +59,7 @@ class MovieAdapter(var context: Context,
             itemView.setOnClickListener {
                 val position: Int = adapterPosition
                 val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra("image", image[position])
+                intent.putExtra("image", imageList[position])
                 intent.putExtra("plot", plot[position])
                 intent.putExtra("title", titles[position])
                 context.startActivity(intent)
