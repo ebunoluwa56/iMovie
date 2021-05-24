@@ -38,6 +38,7 @@ class NowPlaying : Fragment() {
     private var progressBar: ProgressBar? = null
     private var page: Int = 1
     private var limit: Int = 20
+    private var ids = mutableListOf<Int>()
 
 
 
@@ -58,13 +59,14 @@ class NowPlaying : Fragment() {
 
     private fun setUpRecyclerView() {
         playingRecyclerView?.layoutManager = gridLayoutManager
-        playingRecyclerView?.adapter = context?.let { MovieAdapter(it, titleList, imageList, plotList) }
+        playingRecyclerView?.adapter = context?.let { MovieAdapter(it, titleList, imageList, plotList, ids) }
     }
 
-    private fun addToList(title: String, image: String, plot: String) {
+    private fun addToList(title: String, image: String, plot: String, id: Int) {
         titleList.add(title)
         imageList.add(image)
         plotList.add(plot)
+        ids.add(id)
     }
 
 
@@ -97,7 +99,7 @@ class NowPlaying : Fragment() {
                     val responseBody = response.body()!!
                     for (movies in responseBody.results) {
                         Log.i("PlayingFragment", "Result = $movies")
-                        addToList(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview)
+                        addToList(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview, movies.id)
                     }
                     setUpRecyclerView()
                 }

@@ -36,6 +36,7 @@ class Popular : Fragment() {
     private var progressBar: ProgressBar? = null
     private var page: Int = 1
     private var limit: Int = 20
+    private var ids = mutableListOf<Int>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +50,16 @@ class Popular : Fragment() {
         return view
     }
 
-    private fun addToList(title : String, image: String, plot: String) {
+    private fun addToList(title : String, image: String, plot: String, id: Int) {
         titleList.add(title)
         imageList.add(image)
         plotList.add(plot)
+        ids.add(id)
     }
 
     private fun setUpRecyclerView() {
         popularRecyclerView?.layoutManager = gridLayoutManager
-        popularRecyclerView?.adapter = context?.let { MovieAdapter(it, titleList, imageList, plotList) }
+        popularRecyclerView?.adapter = context?.let { MovieAdapter(it, titleList, imageList, plotList, ids) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,7 +91,7 @@ class Popular : Fragment() {
                     val responseBody = response.body()!!
                     for (movies in responseBody.results) {
                         Log.i("PopularFragment", "Result = $movies")
-                        addToList(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview)
+                        addToList(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview, movies.id)
                     }
                     setUpRecyclerView()
                 }

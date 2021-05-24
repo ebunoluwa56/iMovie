@@ -18,7 +18,8 @@ class MovieAdapter(
     var context: Context,
     var titles: List<String>,
     var imageList: List<String>,
-    var plot: List<String>
+    var plot: List<String>,
+    var id: List<Int>
 ) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
@@ -62,6 +63,7 @@ class MovieAdapter(
                 intent.putExtra("image", imageList[position])
                 intent.putExtra("plot", plot[position])
                 intent.putExtra("title", titles[position])
+                intent.putExtra("id", id[position])
                 context.startActivity(intent)
             }
         }
