@@ -33,9 +33,34 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:text="@string/app_name"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/cast"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:text="Cast"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cast_recycler_view"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
 </LinearLayout>
