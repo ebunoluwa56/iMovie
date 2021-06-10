@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,60 +8,69 @@
     android:orientation="vertical"
     tools:context=".DetailsActivity">
 
-    <ImageView
-        android:id="@+id/movie_details_image"
-        android:layout_width="match_parent"
-        android:src="@mipmap/ic_launcher"
-        android:scaleType="fitXY"
-        android:layout_marginTop="8dp"
-        android:layout_height="300dp"/>
-
-    <TextView
-        android:id="@+id/movie_title"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/movie_plot"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/cast"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:text="Cast"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"/>
-
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cast_recycler_view"
-            android:layout_marginTop="20dp"
+        <ImageView
+            android:id="@+id/movie_details_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"
+            android:layout_marginTop="8dp"
+            android:layout_height="350dp"/>
+
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/movie_plot"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/cast"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:text="Cast"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cast_recycler_view"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+
+
+</ScrollView>
