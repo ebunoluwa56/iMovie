@@ -22,6 +22,7 @@ class DetailsActivity : AppCompatActivity() {
     private var plotTextView: TextView? = null
     private var titleTextView: TextView? = null
     private var movieImageView: ImageView? = null
+    private var movieImageViewBackground: ImageView? = null
     private var imageList = mutableListOf<String>()
     private var castList = mutableListOf<String>()
     private var recyclerView: RecyclerView? =null
@@ -32,6 +33,7 @@ class DetailsActivity : AppCompatActivity() {
         plotTextView = findViewById(R.id.movie_plot)
         titleTextView = findViewById(R.id.movie_title)
         movieImageView = findViewById(R.id.movie_details_image)
+        movieImageViewBackground = findViewById(R.id.movie_details_image_background)
 
         val plot = intent.getStringExtra("plot")
         plotTextView?.text = plot
@@ -41,14 +43,15 @@ class DetailsActivity : AppCompatActivity() {
         Glide.with(this)
                 .load(image)
                 .into(movieImageView!!)
+        Glide.with(this)
+                .load(image)
+                .into(movieImageViewBackground!!)
         getCredits()
 
         recyclerView = findViewById(R.id.cast_recycler_view)
     }
 
     private fun setUpRecyclerView() {
-        val newLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView?.layoutManager = newLayoutManager
         recyclerView?.adapter = CastAdapter(this, castList, imageList)
     }
 
