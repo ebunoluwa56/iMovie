@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.iyanuoluwa.imovie.adapter.CastAdapter
 import com.iyanuoluwa.imovie.api2.Credits
 import com.iyanuoluwa.imovie.data.ApiCredits
@@ -41,11 +42,12 @@ class DetailsActivity : AppCompatActivity() {
         titleTextView?.text = title
         val image = intent.getStringExtra("image")
         Glide.with(this)
-                .load(image)
-                .into(movieImageView!!)
+            .load(image)
+            .apply(RequestOptions().error(R.drawable.ic_launcher_foreground))
+            .into(movieImageView!!)
         Glide.with(this)
-                .load(image)
-                .into(movieImageViewBackground!!)
+            .load(image)
+            .into(movieImageViewBackground!!)
         getCredits()
 
         recyclerView = findViewById(R.id.cast_recycler_view)
