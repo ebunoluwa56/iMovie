@@ -43,7 +43,7 @@ class DetailsActivity : AppCompatActivity() {
         val image = intent.getStringExtra("image")
         Glide.with(this)
             .load(image)
-            .apply(RequestOptions().error(R.drawable.ic_launcher_foreground))
+            .apply(RequestOptions().error(R.drawable.no_image))
             .into(movieImageView!!)
         Glide.with(this)
             .load(image)
