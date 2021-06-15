@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.iyanuoluwa.imovie.adapter.CastAdapter
 import com.iyanuoluwa.imovie.api2.Credits
 import com.iyanuoluwa.imovie.data.ApiCredits
@@ -22,6 +23,7 @@ class DetailsActivity : AppCompatActivity() {
     private var plotTextView: TextView? = null
     private var titleTextView: TextView? = null
     private var movieImageView: ImageView? = null
+    private var movieImageViewBackground: ImageView? = null
     private var imageList = mutableListOf<String>()
     private var castList = mutableListOf<String>()
     private var recyclerView: RecyclerView? =null
@@ -32,6 +34,7 @@ class DetailsActivity : AppCompatActivity() {
         plotTextView = findViewById(R.id.movie_plot)
         titleTextView = findViewById(R.id.movie_title)
         movieImageView = findViewById(R.id.movie_details_image)
+        movieImageViewBackground = findViewById(R.id.movie_details_image_background)
 
         val plot = intent.getStringExtra("plot")
         plotTextView?.text = plot
@@ -39,16 +42,18 @@ class DetailsActivity : AppCompatActivity() {
         titleTextView?.text = title
         val image = intent.getStringExtra("image")
         Glide.with(this)
-                .load(image)
-                .into(movieImageView!!)
+            .load(image)
+            .apply(RequestOptions().error(R.drawable.no_image))
+            .into(movieImageView!!)
+        Glide.with(this)
+            .load(image)
+            .into(movieImageViewBackground!!)
         getCredits()
 
         recyclerView = findViewById(R.id.cast_recycler_view)
     }
 
     private fun setUpRecyclerView() {
-        val newLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView?.layoutManager = newLayoutManager
         recyclerView?.adapter = CastAdapter(this, castList, imageList)
     }
 
