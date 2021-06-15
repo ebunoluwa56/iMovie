@@ -41,7 +41,7 @@ class MovieAdapter(
             .load(imageList[position])
             .apply(
                 RequestOptions().placeholder(circularProgressDrawable)
-                    .error(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.no_image)
             )
             .fitCenter()
             .into(holder.images)
