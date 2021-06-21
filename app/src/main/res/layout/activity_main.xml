@@ -10,7 +10,7 @@
 
 
 
-    <com.iyanuoluwa.imovie.custom.NaughtyPager
+    <com.iyanuoluwa.imovie.util.custom.NaughtyPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_nav"

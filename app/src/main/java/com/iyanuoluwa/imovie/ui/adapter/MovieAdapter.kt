@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.adapter
+package com.iyanuoluwa.imovie.ui.adapter
 
 import android.content.Context
 import android.content.Intent

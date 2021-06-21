@@ -11,13 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.iyanuoluwa.imovie.adapter.MovieAdapter
-import com.iyanuoluwa.imovie.api.MovieJson
-import com.iyanuoluwa.imovie.data.ApiUpcoming
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.iyanuoluwa.imovie.ui.adapter.MovieAdapter
+import com.iyanuoluwa.imovie.data.model.buffer.api.MovieJson
+import com.iyanuoluwa.imovie.data.remote.request.ApiUpcoming
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

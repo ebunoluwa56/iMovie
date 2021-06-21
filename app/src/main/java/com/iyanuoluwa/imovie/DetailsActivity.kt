@@ -5,13 +5,12 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.iyanuoluwa.imovie.adapter.CastAdapter
-import com.iyanuoluwa.imovie.api2.Credits
-import com.iyanuoluwa.imovie.data.ApiCredits
+import com.iyanuoluwa.imovie.ui.adapter.CastAdapter
+import com.iyanuoluwa.imovie.data.model.buffer.api.Credits
+import com.iyanuoluwa.imovie.data.remote.request.ApiCredits
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
