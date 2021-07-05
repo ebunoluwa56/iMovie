@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.data.model.buffer.api
+package com.iyanuoluwa.imovie.data.model
 
 
 import com.google.gson.annotations.SerializedName
