@@ -1,7 +1,7 @@
-package com.iyanuoluwa.imovie.data.remote.request
+package com.iyanuoluwa.imovie.data.remote
 
-import com.iyanuoluwa.imovie.data.model.buffer.api.Credits
-import com.iyanuoluwa.imovie.data.model.buffer.api.MovieJson
+import com.iyanuoluwa.imovie.data.model.Credits
+import com.iyanuoluwa.imovie.data.model.MovieJson
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.ui.adapter
+package com.iyanuoluwa.imovie.ui.details
 
 import android.content.Context
 import android.graphics.Color

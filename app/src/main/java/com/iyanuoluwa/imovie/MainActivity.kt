@@ -8,7 +8,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.iyanuoluwa.imovie.util.custom.NaughtyPager
+import com.iyanuoluwa.imovie.ui.common.NaughtyPager
+import com.iyanuoluwa.imovie.ui.main.NowPlaying
+import com.iyanuoluwa.imovie.ui.main.Popular
+import com.iyanuoluwa.imovie.ui.main.TopRated
+import com.iyanuoluwa.imovie.ui.main.UpComing
 
 class MainActivity : AppCompatActivity() {
 
