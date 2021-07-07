@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.R
-import com.iyanuoluwa.imovie.ui.details.MovieAdapter
 import com.iyanuoluwa.imovie.data.model.MovieJson
 import com.iyanuoluwa.imovie.data.remote.ApiTopRated
 import retrofit2.Call

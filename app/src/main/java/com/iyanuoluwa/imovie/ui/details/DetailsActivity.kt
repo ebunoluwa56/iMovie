@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie
+package com.iyanuoluwa.imovie.ui.details
 
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.ui.main.BASE_URL
-import com.iyanuoluwa.imovie.ui.details.CastAdapter
 import com.iyanuoluwa.imovie.data.model.Credits
 import com.iyanuoluwa.imovie.data.remote.ApiCredits
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie
+package com.iyanuoluwa.imovie.ui.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.ui.common.NaughtyPager
 import com.iyanuoluwa.imovie.ui.main.NowPlaying
 import com.iyanuoluwa.imovie.ui.main.Popular

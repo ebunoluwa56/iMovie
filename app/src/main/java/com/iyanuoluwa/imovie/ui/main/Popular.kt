@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
 import com.iyanuoluwa.imovie.data.remote.ApiPopular
-import com.iyanuoluwa.imovie.ui.details.MovieAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
