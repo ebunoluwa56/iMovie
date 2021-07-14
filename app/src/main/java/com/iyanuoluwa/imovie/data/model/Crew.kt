@@ -1,21 +1,19 @@
-package com.iyanuoluwa.imovie.api2
+package com.iyanuoluwa.imovie.data.model
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Cast(
+data class Crew(
     val adult: Boolean,
-    @SerializedName("cast_id")
-    val castId: Int,
-    val character: String,
     @SerializedName("credit_id")
     val creditId: String,
+    val department: String,
     val gender: Int,
     val id: Int,
+    val job: String,
     @SerializedName("known_for_department")
     val knownForDepartment: String,
     val name: String,
-    val order: Int,
     @SerializedName("original_name")
     val originalName: String,
     val popularity: Double,

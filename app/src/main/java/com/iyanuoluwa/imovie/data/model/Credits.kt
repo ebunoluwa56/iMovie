@@ -1,7 +1,5 @@
-package com.iyanuoluwa.imovie.api2
+package com.iyanuoluwa.imovie.data.model
 
-
-import com.google.gson.annotations.SerializedName
 
 data class Credits(
     val cast: List<Cast>,

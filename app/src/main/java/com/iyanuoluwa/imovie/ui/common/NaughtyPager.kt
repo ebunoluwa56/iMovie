@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.custom
+package com.iyanuoluwa.imovie.ui.common
 
 import android.content.Context
 import android.util.AttributeSet
