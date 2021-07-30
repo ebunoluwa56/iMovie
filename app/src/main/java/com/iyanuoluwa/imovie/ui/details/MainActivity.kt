@@ -1,16 +1,19 @@
-package com.iyanuoluwa.imovie
+package com.iyanuoluwa.imovie.ui.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.iyanuoluwa.imovie.custom.NaughtyPager
+import com.iyanuoluwa.imovie.R
+import com.iyanuoluwa.imovie.ui.common.NaughtyPager
+import com.iyanuoluwa.imovie.ui.main.NowPlaying
+import com.iyanuoluwa.imovie.ui.main.Popular
+import com.iyanuoluwa.imovie.ui.main.TopRated
+import com.iyanuoluwa.imovie.ui.main.UpComing
 
 class MainActivity : AppCompatActivity() {
 

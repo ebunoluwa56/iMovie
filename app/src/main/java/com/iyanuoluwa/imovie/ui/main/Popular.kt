@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie
+package com.iyanuoluwa.imovie.ui.main
 
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.iyanuoluwa.imovie.adapter.MovieAdapter
-import com.iyanuoluwa.imovie.api.MovieJson
-import com.iyanuoluwa.imovie.data.ApiPopular
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.iyanuoluwa.imovie.R
+import com.iyanuoluwa.imovie.data.model.MovieJson
+import com.iyanuoluwa.imovie.data.remote.ApiPopular
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
