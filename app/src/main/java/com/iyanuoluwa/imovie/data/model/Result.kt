@@ -1,9 +1,14 @@
 package com.iyanuoluwa.imovie.data.model
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "movies_table")
 data class Result(
+    @PrimaryKey(autoGenerate = true)
+    val ids : Int,
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
@@ -26,8 +31,5 @@ data class Result(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-
-
-
 
 )
