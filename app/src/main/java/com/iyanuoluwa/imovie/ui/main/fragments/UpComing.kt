@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.ui.main
+package com.iyanuoluwa.imovie.ui.main.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
 import com.iyanuoluwa.imovie.data.remote.ApiUpcoming
+import com.iyanuoluwa.imovie.ui.main.MainActivity
+import com.iyanuoluwa.imovie.ui.main.MovieAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,7 +75,7 @@ class UpComing : Fragment() {
 
     private fun getUpcomingMovies(page: Int, limit: Int) {
         val upcomingApi = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiUpcoming::class.java)

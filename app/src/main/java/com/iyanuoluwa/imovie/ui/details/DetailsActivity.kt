@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iyanuoluwa.imovie.R
-import com.iyanuoluwa.imovie.ui.main.BASE_URL
 import com.iyanuoluwa.imovie.data.model.Credits
 import com.iyanuoluwa.imovie.data.remote.ApiCredits
+import com.iyanuoluwa.imovie.ui.main.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,7 +65,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun getCredits() {
         val id = intent.getIntExtra("id", 460465)
         val api = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(MainActivity.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiCredits::class.java)

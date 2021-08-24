@@ -1,18 +1,19 @@
 package com.iyanuoluwa.imovie.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.iyanuoluwa.imovie.data.model.Result
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(movie : Result)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMovie(movie : Result)
 
-    @Query("SELECT * FROM movies_table ORDER BY ids")
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllMovies(movie : List<Result>)
+
+    @Query("SELECT * FROM movies_table ORDER BY id DESC")
     fun getMovieDatabase() : Flow<List<Result>>
 }

@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.ui.details
+package com.iyanuoluwa.imovie.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,10 +10,10 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.ui.common.NaughtyPager
-import com.iyanuoluwa.imovie.ui.main.NowPlaying
-import com.iyanuoluwa.imovie.ui.main.Popular
-import com.iyanuoluwa.imovie.ui.main.TopRated
-import com.iyanuoluwa.imovie.ui.main.UpComing
+import com.iyanuoluwa.imovie.ui.main.fragments.NowPlaying
+import com.iyanuoluwa.imovie.ui.main.fragments.Popular
+import com.iyanuoluwa.imovie.ui.main.fragments.TopRated
+import com.iyanuoluwa.imovie.ui.main.fragments.UpComing
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,7 +72,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    companion object {
+        // https://api.themoviedb.org/3/movie/now_playing?api_key=68f286331e8795bd4addf043c1e8423d&language=en-US
+        const val BASE_URL = "https://api.themoviedb.org/3/"
+    }
 
     class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 

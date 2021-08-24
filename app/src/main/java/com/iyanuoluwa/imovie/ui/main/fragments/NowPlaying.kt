@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.ui.main
+package com.iyanuoluwa.imovie.ui.main.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,22 +9,23 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.iyanuoluwa.imovie.MovieApplication
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
 import com.iyanuoluwa.imovie.data.remote.ApiNowPlaying
+import com.iyanuoluwa.imovie.ui.main.MainActivity
+import com.iyanuoluwa.imovie.ui.main.MovieAdapter
+import com.iyanuoluwa.imovie.ui.main.MovieViewModel
+import com.iyanuoluwa.imovie.ui.main.ViewModelFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-
-// https://api.themoviedb.org/3/movie/now_playing?api_key=68f286331e8795bd4addf043c1e8423d&language=en-US
-
-const val BASE_URL = "https://api.themoviedb.org/3/"
 
 class NowPlaying : Fragment() {
 
@@ -40,7 +41,9 @@ class NowPlaying : Fragment() {
     private var limit: Int = 20
     private var ids = mutableListOf<Int>()
 
-
+    private val movieViewModel: MovieViewModel by viewModels {
+        ViewModelFactory((requireActivity().application as MovieApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,20 +76,18 @@ class NowPlaying : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getMovies(page, limit)
-        nestedScrollView?.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
-            override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
-                if (scrollY == (v?.getChildAt(0)?.measuredHeight)?.minus(v?.measuredHeight!!)) {
-                    page++
-                    progressBar?.visibility = View.VISIBLE
-                    getMovies(page, limit)
-                }
+        nestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            if (scrollY == (v?.getChildAt(0)?.measuredHeight)?.minus(v.measuredHeight)) {
+                page++
+                progressBar?.visibility = View.VISIBLE
+                getMovies(page, limit, false)
             }
         })
     }
 
-    private fun getMovies(page: Int, limit: Int) {
+    private fun getMovies(page: Int, limit: Int, shouldPersist: Boolean = true) {
         val api = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiNowPlaying::class.java)
@@ -97,10 +98,13 @@ class NowPlaying : Fragment() {
                 if (response.isSuccessful && response.body() != null) {
                     progressBar?.visibility = View.GONE
                     val responseBody = response.body()!!
-                    for (movies in responseBody.results) {
-                        Log.i("PlayingFragment", "Result = $movies")
-                        addToList(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview, movies.id)
+                    responseBody.results.forEach { movie ->
+                        addToList(movie.title, "https://image.tmdb.org/t/p/w500${movie.posterPath}", movie.overview, movie.id)
                     }
+
+                    // Insert movies locally in the db
+                    if (shouldPersist) movieViewModel.insertMovies(responseBody.results)
+
                     setUpRecyclerView()
                 }
             }

@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.data.local
+package com.iyanuoluwa.imovie.ui.main
 
 import androidx.lifecycle.*
 import com.iyanuoluwa.imovie.data.model.Result
@@ -6,10 +6,12 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
 
-    val allMovie : LiveData<List<Result>> = repository.allMovies.asLiveData()
+    val allMovies : LiveData<List<Result>> = repository.allMovies.asLiveData()
 
-    fun insert(movie : Result) = viewModelScope.launch {
-        repository.insert(movie)
+    fun insertMovies(movies: List<Result>) {
+        viewModelScope.launch {
+            repository.insertMovies(movies)
+        }
     }
 }
 
