@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
+import com.iyanuoluwa.imovie.data.model.Result
 import com.iyanuoluwa.imovie.data.remote.MovieApi
 import com.iyanuoluwa.imovie.ui.main.MovieAdapter
 import com.iyanuoluwa.imovie.util.BASE_URL
@@ -27,14 +28,10 @@ class Popular : Fragment() {
 
     private var popularRecyclerView: RecyclerView? =null
     private var gridLayoutManager: GridLayoutManager? = null
-    private var titleList = mutableListOf<String>()
-    private var imageList = mutableListOf<String>()
-    private var plotList = mutableListOf<String>()
     private var nestedScrollView: NestedScrollView? = null
     private var progressBar: ProgressBar? = null
     private var page: Int = 1
     private var limit: Int = 20
-    private var ids = mutableListOf<Int>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -47,16 +44,9 @@ class Popular : Fragment() {
         return view
     }
 
-    private fun addToList(title : String, image: String, plot: String, id: Int) {
-        titleList.add(title)
-        imageList.add(image)
-        plotList.add(plot)
-        ids.add(id)
-    }
-
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(list: MutableList<Result>) {
         popularRecyclerView?.layoutManager = gridLayoutManager
-        popularRecyclerView?.adapter = context?.let { MovieAdapter(it, titleList, imageList, plotList, ids) }
+        popularRecyclerView?.adapter = context?.let { MovieAdapter(it, list) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,11 +76,8 @@ class Popular : Fragment() {
                 if (response.isSuccessful && response.body() != null) {
                     progressBar?.visibility = View.GONE
                     val responseBody = response.body()!!
-                    for (movies in responseBody.results) {
-                        Log.i("PopularFragment", "Result = $movies")
-                        addToList(movies.title, "https://image.tmdb.org/t/p/w500${movies.posterPath}", movies.overview, movies.id)
-                    }
-                    setUpRecyclerView()
+                    val list = mutableListOf<Result>().also { it.addAll(responseBody.results) }
+                    setUpRecyclerView(list)
                 }
             }
 

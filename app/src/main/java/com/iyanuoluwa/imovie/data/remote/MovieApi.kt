@@ -14,20 +14,11 @@ interface MovieApi {
         @Path("movie_id") movieId: Int
     ): Call<Credits>
 
-
-    @GET("movie/now_playing?api_key=${API_KEY}&language=en-US")
-    fun getMoviesPlaying(
-        @Query("page") page: Int,
-        @Query("limit") limit: Int
-    ): Call<MovieJson>
-
-
     @GET("movie/popular?api_key=${API_KEY}&language=en-US")
     fun getPopularMovies(
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Call<MovieJson>
-
 
     @GET("movie/top_rated?api_key=${API_KEY}&language=en-US")
     fun getTopRatedMovies(
@@ -35,10 +26,16 @@ interface MovieApi {
         @Query("limit") limit: Int
     ): Call<MovieJson>
 
-
     @GET("movie/upcoming?api_key=${API_KEY}&language=en-US")
     fun getUpcomingMovies(
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Call<MovieJson>
+
+    @GET("movie/{category}?api_key=${API_KEY}&language=en-US")
+    suspend fun getMovies(
+        @Path("category") string: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): MovieJson
 }

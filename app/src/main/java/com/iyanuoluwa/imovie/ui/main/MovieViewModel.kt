@@ -1,12 +1,16 @@
 package com.iyanuoluwa.imovie.ui.main
 
 import androidx.lifecycle.*
+import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.data.model.Result
+import com.iyanuoluwa.imovie.util.Resource
 import kotlinx.coroutines.launch
 
 class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
 
-    val allMovies : LiveData<List<Result>> = repository.allMovies.asLiveData()
+    fun getMovies(page: Int, limit: Int, category: Category): LiveData<Resource<List<Result>>> {
+        return repository.getMovies(page, limit, category).asLiveData()
+    }
 
     fun insertMovies(movies: List<Result>) {
         viewModelScope.launch {
