@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.ui.main.fragments
+package com.iyanuoluwa.imovie.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,12 +17,9 @@ import com.iyanuoluwa.imovie.MovieApplication
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.data.model.Result
-import com.iyanuoluwa.imovie.ui.main.MovieAdapter
-import com.iyanuoluwa.imovie.ui.main.MovieViewModel
-import com.iyanuoluwa.imovie.ui.main.ViewModelFactory
 import com.iyanuoluwa.imovie.util.Resource
 
-class NowPlaying : Fragment() {
+class MovieFragment() : Fragment() {
 
     private var textView: TextView? = null
     private var playingRecyclerView: RecyclerView? =null
@@ -31,6 +28,7 @@ class NowPlaying : Fragment() {
     private var progressBar: ProgressBar? = null
     private var page: Int = 1
     private var limit: Int = 20
+    private var category: Category = Category.NOW_PLAYING
 
     private lateinit var adapter : MovieAdapter
 
@@ -50,12 +48,14 @@ class NowPlaying : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
 
-        getMovies(page, limit, Category.NOW_PLAYING)
+        category = Category.fromCategoryName(requireArguments().getString("category") ?: "")
+
+        getMovies(page, limit, category)
 
         nestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             if (scrollY == (v?.getChildAt(0)?.measuredHeight)?.minus(v.measuredHeight)) {
                 page++
-                getMovies(page, limit, Category.NOW_PLAYING)
+                getMovies(page, limit, category)
             }
         })
     }
@@ -102,5 +102,15 @@ class NowPlaying : Fragment() {
                 }
             }
         )
+    }
+
+    companion object {
+        fun newInstance(category: Category): MovieFragment {
+            val args = Bundle()
+            args.putString("category", category.categoryName)
+            val fragment = MovieFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
