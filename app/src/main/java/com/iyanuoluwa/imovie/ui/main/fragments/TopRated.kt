@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
-import com.iyanuoluwa.imovie.data.remote.ApiTopRated
-import com.iyanuoluwa.imovie.ui.main.MainActivity
+import com.iyanuoluwa.imovie.data.remote.MovieApi
 import com.iyanuoluwa.imovie.ui.main.MovieAdapter
+import com.iyanuoluwa.imovie.util.BASE_URL
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -76,10 +76,10 @@ class TopRated : Fragment() {
 
     private fun getTopRatedMovies(page: Int, limit: Int) {
         val apiTopRated = Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiTopRated::class.java)
+                .create(MovieApi::class.java)
 
         val data = apiTopRated.getTopRatedMovies(page, limit)
         data.enqueue(object : Callback<MovieJson?> {

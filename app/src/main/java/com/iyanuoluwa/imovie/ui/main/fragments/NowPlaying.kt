@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.MovieApplication
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
-import com.iyanuoluwa.imovie.data.remote.ApiNowPlaying
-import com.iyanuoluwa.imovie.ui.main.MainActivity
+import com.iyanuoluwa.imovie.data.remote.MovieApi
 import com.iyanuoluwa.imovie.ui.main.MovieAdapter
 import com.iyanuoluwa.imovie.ui.main.MovieViewModel
 import com.iyanuoluwa.imovie.ui.main.ViewModelFactory
+import com.iyanuoluwa.imovie.util.BASE_URL
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -87,10 +87,10 @@ class NowPlaying : Fragment() {
 
     private fun getMovies(page: Int, limit: Int, shouldPersist: Boolean = true) {
         val api = Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiNowPlaying::class.java)
+                .create(MovieApi::class.java)
 
         val data = api.getMoviesPlaying(page, limit)
         data.enqueue(object : Callback<MovieJson?> {

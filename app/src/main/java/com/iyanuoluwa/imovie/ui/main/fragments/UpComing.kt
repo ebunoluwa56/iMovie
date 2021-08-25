@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
-import com.iyanuoluwa.imovie.data.remote.ApiUpcoming
-import com.iyanuoluwa.imovie.ui.main.MainActivity
+import com.iyanuoluwa.imovie.data.remote.MovieApi
 import com.iyanuoluwa.imovie.ui.main.MovieAdapter
+import com.iyanuoluwa.imovie.util.BASE_URL
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,10 +75,10 @@ class UpComing : Fragment() {
 
     private fun getUpcomingMovies(page: Int, limit: Int) {
         val upcomingApi = Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiUpcoming::class.java)
+                .create(MovieApi::class.java)
         val data = upcomingApi.getUpcomingMovies(page, limit)
         data.enqueue(object : Callback<MovieJson?> {
             override fun onResponse(call: Call<MovieJson?>, response: Response<MovieJson?>) {

@@ -72,11 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    companion object {
-        // https://api.themoviedb.org/3/movie/now_playing?api_key=68f286331e8795bd4addf043c1e8423d&language=en-US
-        const val BASE_URL = "https://api.themoviedb.org/3/"
-    }
-
     class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         private val fragmentList : MutableList<Fragment>  = ArrayList()

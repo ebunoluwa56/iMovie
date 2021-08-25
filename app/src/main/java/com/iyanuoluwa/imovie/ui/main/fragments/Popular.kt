@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.MovieJson
-import com.iyanuoluwa.imovie.data.remote.ApiPopular
-import com.iyanuoluwa.imovie.ui.main.MainActivity
+import com.iyanuoluwa.imovie.data.remote.MovieApi
 import com.iyanuoluwa.imovie.ui.main.MovieAdapter
+import com.iyanuoluwa.imovie.util.BASE_URL
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,10 +75,10 @@ class Popular : Fragment() {
 
     private fun getPopularMovies(page: Int, limit: Int) {
         val apiPopular = Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiPopular::class.java)
+                .create(MovieApi::class.java)
 
         val data = apiPopular.getPopularMovies(page, limit)
         data.enqueue(object : Callback<MovieJson?> {
