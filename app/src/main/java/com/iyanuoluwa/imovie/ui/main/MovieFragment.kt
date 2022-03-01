@@ -16,10 +16,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.iyanuoluwa.imovie.MovieApplication
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.Category
-import com.iyanuoluwa.imovie.data.model.Result
+import com.iyanuoluwa.imovie.data.model.Movie
 import com.iyanuoluwa.imovie.util.Resource
 
-class MovieFragment() : Fragment() {
+class MovieFragment : Fragment() {
 
     private var textView: TextView? = null
     private var playingRecyclerView: RecyclerView? =null
@@ -86,7 +86,7 @@ class MovieFragment() : Fragment() {
                             // Insert movies locally in the db only on the first page
                             movieViewModel.insertMovies(it.data)
                             // refresh data on page 1
-                            adapter.movies = it.data as MutableList<Result>
+                            adapter.movies = it.data as MutableList<Movie>
                         } else {
                             // add data on subsequent pages
                             adapter.movies.addAll(it.data)

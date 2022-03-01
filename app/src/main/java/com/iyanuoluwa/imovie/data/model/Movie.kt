@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movies")
-data class Result(
+data class Movie(
     @PrimaryKey
     val id: Int,
     val adult: Boolean,
@@ -28,6 +28,8 @@ data class Result(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+
+    val category: Category,
 
 )

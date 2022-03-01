@@ -12,12 +12,12 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iyanuoluwa.imovie.R
-import com.iyanuoluwa.imovie.data.model.Result
+import com.iyanuoluwa.imovie.data.model.Movie
 import com.iyanuoluwa.imovie.ui.details.DetailsActivity
 
 class MovieAdapter(
     val context: Context,
-    var movies: MutableList<Result>
+    var movies: MutableList<Movie>
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
