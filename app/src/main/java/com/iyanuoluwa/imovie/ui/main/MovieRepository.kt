@@ -18,7 +18,7 @@ class MovieRepository(
         movieDao.insertAllMovies(movies)
     }
 
-    private suspend fun getMoviesLocal(): List<Movie> = movieDao.getMovies()
+    private suspend fun getMoviesLocal(category: Category): List<Movie> = movieDao.getMovies(category)
     private suspend fun getMoviesNetwork(page: Int, limit: Int, category: Category) =
         movieApi.getMovies(category.categoryName, page, limit).movies
 
@@ -26,7 +26,7 @@ class MovieRepository(
         emit(Resource.Loading)
 
         // Only emit saved data on first page
-        if (page == 1) emit(Resource.Success(getMoviesLocal()))
+        if (page == 1) emit(Resource.Success(getMoviesLocal(category)))
 
         try {
             val movies = getMoviesNetwork(page, limit, category)
