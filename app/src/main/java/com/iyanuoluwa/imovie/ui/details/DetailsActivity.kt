@@ -63,7 +63,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun getCredits() {
-        val id = intent.getIntExtra("id", 460465)
+        val id = intent.getIntExtra("id", 0)
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

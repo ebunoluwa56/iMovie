@@ -14,21 +14,18 @@ import com.iyanuoluwa.imovie.ui.common.NaughtyPager
 
 class MainActivity : AppCompatActivity() {
 
-    private val upcomingFragment = MovieFragment.newInstance(Category.UPCOMING)
-    private val nowPlayingFragment = MovieFragment.newInstance(Category.NOW_PLAYING)
-    private val topRatedFragment = MovieFragment.newInstance(Category.TOP_RATED)
-    private val popularFragment = MovieFragment.newInstance(Category.POPULAR)
-
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val viewPager = findViewById<NaughtyPager>(R.id.view_pager)
 
+        val upcomingFragment = MovieFragment.newInstance(Category.UPCOMING)
+        val nowPlayingFragment = MovieFragment.newInstance(Category.NOW_PLAYING)
+        val topRatedFragment = MovieFragment.newInstance(Category.TOP_RATED)
+        val popularFragment = MovieFragment.newInstance(Category.POPULAR)
 
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.addFragmentToList(nowPlayingFragment)
