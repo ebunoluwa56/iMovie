@@ -1,7 +1,7 @@
 package com.iyanuoluwa.imovie.data.remote
 
 import com.iyanuoluwa.imovie.data.model.Credits
-import com.iyanuoluwa.imovie.data.model.MovieJson
+import com.iyanuoluwa.imovie.data.model.MovieResponseObject
 import com.iyanuoluwa.imovie.util.API_KEY
 import retrofit2.Call
 import retrofit2.http.GET
@@ -19,5 +19,5 @@ interface MovieApi {
         @Path("category") string: String,
         @Query("page") page: Int,
         @Query("limit") limit: Int
-    ): MovieJson
+    ): MovieResponseObject
 }

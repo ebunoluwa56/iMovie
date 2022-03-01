@@ -22,7 +22,7 @@ import com.iyanuoluwa.imovie.util.Resource
 class MovieFragment : Fragment() {
 
     private var textView: TextView? = null
-    private var playingRecyclerView: RecyclerView? =null
+    private var playingRecyclerView: RecyclerView? = null
     private var gridLayoutManager: GridLayoutManager? = null
     private var nestedScrollView: NestedScrollView? = null
     private var progressBar: ProgressBar? = null
@@ -30,7 +30,7 @@ class MovieFragment : Fragment() {
     private var limit: Int = 20
     private var category: Category = Category.NOW_PLAYING
 
-    private lateinit var adapter : MovieAdapter
+    private lateinit var adapter: MovieAdapter
 
     private val movieViewModel: MovieViewModel by viewModels {
         ViewModelFactory((requireActivity().application as MovieApplication).repository)
@@ -48,7 +48,7 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
 
-        category = Category.fromCategoryName(requireArguments().getString("category") ?: "")
+        category = Category.fromCategoryName(requireArguments().getString("category").orEmpty())
 
         getMovies(page, limit, category)
 
@@ -75,33 +75,35 @@ class MovieFragment : Fragment() {
 
     private fun getMovies(page: Int, limit: Int, category: Category) {
         movieViewModel.getMovies(page, limit, category).observe(
-            viewLifecycleOwner,
-            {
-                when (it) {
-                    is Resource.Loading -> progressBar?.visibility = View.VISIBLE
-                    is Resource.Success -> {
-                        progressBar?.visibility = View.GONE
+            viewLifecycleOwner
+        ) {
+            when (it) {
+                is Resource.Loading -> progressBar?.visibility = View.VISIBLE
+                is Resource.Success -> {
+                    progressBar?.visibility = View.GONE
 
-                        if (page == 1) {
-                            // Insert movies locally in the db only on the first page
-                            movieViewModel.insertMovies(it.data)
-                            // refresh data on page 1
-                            adapter.movies = it.data as MutableList<Movie>
-                        } else {
-                            // add data on subsequent pages
-                            adapter.movies.addAll(it.data)
-                        }
-
-                        playingRecyclerView?.adapter?.notifyDataSetChanged()
+                    if (page == 1) {
+                        // Insert movies locally in the db only on the first page
+                        // Include the category as well
+                        val movies = it.data
+                        movies.forEach { movie -> movie.category = category }
+                        movieViewModel.insertMovies(movies)
+                        // refresh data on page 1
+                        adapter.movies = movies as MutableList<Movie>
+                    } else {
+                        // add data on subsequent pages
+                        adapter.movies.addAll(it.data)
                     }
 
-                    is Resource.Failure -> {
-                        progressBar?.visibility = View.GONE
-                        Snackbar.make(textView!!, it.throwable.message!!, Snackbar.LENGTH_LONG).show()
-                    }
+                    playingRecyclerView?.adapter?.notifyDataSetChanged()
+                }
+
+                is Resource.Failure -> {
+                    progressBar?.visibility = View.GONE
+                    Snackbar.make(textView!!, it.throwable.message!!, Snackbar.LENGTH_LONG).show()
                 }
             }
-        )
+        }
     }
 
     companion object {

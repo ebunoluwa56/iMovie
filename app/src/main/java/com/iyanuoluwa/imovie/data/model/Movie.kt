@@ -30,6 +30,7 @@ data class Movie(
     @SerializedName("vote_count")
     val voteCount: Int,
 
-    val category: Category,
+    // Used to save the category from where a movie is fetched
+    var category: Category?,
 
 )
