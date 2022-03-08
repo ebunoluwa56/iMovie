@@ -1,6 +1,5 @@
 package com.iyanuoluwa.imovie.ui.main
 
-import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,6 +58,7 @@ class MovieFragment : Fragment() {
                 getMovies(page, limit, category)
             }
         })
+        changeFragmentTitle(category)
     }
 
     private fun initViews(view: View) {
@@ -107,6 +107,16 @@ class MovieFragment : Fragment() {
                     Snackbar.make(textView!!, it.throwable.message!!, Snackbar.LENGTH_LONG).show()
                 }
             }
+        }
+    }
+
+    private fun changeFragmentTitle(category: Category) {
+        val categoryNames = listOf("Now Playing", "Upcoming", "Popular", "Top Rated")
+        when (category) {
+            Category.NOW_PLAYING -> textView?.text = categoryNames[0]
+            Category.UPCOMING -> textView?.text = categoryNames[1]
+            Category.POPULAR -> textView?.text = categoryNames[2]
+            Category.TOP_RATED -> textView?.text = categoryNames[3]
         }
     }
 
