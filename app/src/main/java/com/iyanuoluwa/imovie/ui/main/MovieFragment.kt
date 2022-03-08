@@ -1,5 +1,6 @@
 package com.iyanuoluwa.imovie.ui.main
 
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -86,8 +87,11 @@ class MovieFragment : Fragment() {
                         // Insert movies locally in the db only on the first page
                         // Include the category as well
                         val movies = it.data
-                        movies.forEach { movie -> movie.category = category }
-                        movieViewModel.insertMovies(movies)
+                        movies.forEach { movie ->
+                            movie.categories = mutableListOf(category)
+                            movieViewModel.insertMovie(movie)
+                        }
+//                        movieViewModel.insertMovies(movies)
                         // refresh data on page 1
                         adapter.movies = movies as MutableList<Movie>
                     } else {

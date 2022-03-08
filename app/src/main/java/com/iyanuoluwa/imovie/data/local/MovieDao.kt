@@ -7,13 +7,19 @@ import com.iyanuoluwa.imovie.data.model.Movie
 @Dao
 interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertMovie(movie : Movie)
+
+    @Update
+    suspend fun updateMovie(movie: Movie)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllMovies(movie : List<Movie>)
 
-    @Query("SELECT * FROM movies WHERE category = :savedCategory ORDER BY id DESC LIMIT 20")
-    suspend fun getMovies(savedCategory: Category) : List<Movie>
+    @Query("SELECT * FROM movies WHERE :requiredCategory IN (categories) ORDER BY id DESC LIMIT 20")
+    suspend fun getMovies(requiredCategory: Category) : List<Movie>
+
+    @Query("SELECT * FROM movies WHERE id = :id")
+    suspend fun getMovie(id : Int) : Movie
 }

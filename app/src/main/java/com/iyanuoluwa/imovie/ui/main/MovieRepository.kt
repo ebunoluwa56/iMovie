@@ -18,6 +18,16 @@ class MovieRepository(
         movieDao.insertAllMovies(movies)
     }
 
+    suspend fun insertMovie(movie: Movie) {
+        movieDao.insertMovie(movie)
+    }
+
+    suspend fun updateMovie(movie: Movie) {
+        movieDao.updateMovie(movie)
+    }
+
+    suspend fun getMovie(id : Int) : Movie = movieDao.getMovie(id)
+
     private suspend fun getMoviesLocal(category: Category): List<Movie> = movieDao.getMovies(category)
     private suspend fun getMoviesNetwork(page: Int, limit: Int, category: Category) =
         movieApi.getMovies(category.categoryName, page, limit).movies

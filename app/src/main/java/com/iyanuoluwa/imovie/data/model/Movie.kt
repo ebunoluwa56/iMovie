@@ -31,6 +31,6 @@ data class Movie(
     val voteCount: Int,
 
     // Used to save the category from where a movie is fetched
-    var category: Category?,
+    var categories: MutableList<Category> = mutableListOf(),
 
-)
+    )
