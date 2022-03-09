@@ -17,7 +17,7 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllMovies(movie : List<Movie>)
 
-    @Query("SELECT * FROM movies WHERE :requiredCategory IN (categories) ORDER BY id DESC LIMIT 20")
+    @Query("SELECT * FROM movies WHERE categories LIKE '%'||:requiredCategory||'%' ORDER BY id DESC LIMIT 20")
     suspend fun getMovies(requiredCategory: Category) : List<Movie>
 
     @Query("SELECT * FROM movies WHERE id = :id")
