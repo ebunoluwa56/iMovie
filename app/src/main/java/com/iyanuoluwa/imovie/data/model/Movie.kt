@@ -1,15 +1,18 @@
 package com.iyanuoluwa.imovie.data.model
 
-
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+@Entity(tableName = "movies")
+data class Movie(
+    @PrimaryKey
+    val id: Int,
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
-    val id: Int,
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("original_title")
@@ -17,7 +20,7 @@ data class Result(
     val overview: String,
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("release_date")
     val releaseDate: String,
     val title: String,
@@ -25,9 +28,9 @@ data class Result(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Int,
 
+    // Used to save the category from where a movie is fetched
+    var categories: MutableList<Category> = mutableListOf(),
 
-
-
-)
+    )

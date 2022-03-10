@@ -1,4 +1,4 @@
-package com.iyanuoluwa.imovie.ui.details
+package com.iyanuoluwa.imovie.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,28 +9,23 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iyanuoluwa.imovie.R
+import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.ui.common.NaughtyPager
-import com.iyanuoluwa.imovie.ui.main.NowPlaying
-import com.iyanuoluwa.imovie.ui.main.Popular
-import com.iyanuoluwa.imovie.ui.main.TopRated
-import com.iyanuoluwa.imovie.ui.main.UpComing
 
 class MainActivity : AppCompatActivity() {
-
-    private val upcomingFragment = UpComing()
-    private val nowPlayingFragment = NowPlaying()
-    private val topRatedFragment = TopRated()
-    private val popularFragment = Popular()
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val viewPager = findViewById<NaughtyPager>(R.id.view_pager)
+
+        val upcomingFragment = MovieFragment.newInstance(Category.UPCOMING)
+        val nowPlayingFragment = MovieFragment.newInstance(Category.NOW_PLAYING)
+        val topRatedFragment = MovieFragment.newInstance(Category.TOP_RATED)
+        val popularFragment = MovieFragment.newInstance(Category.POPULAR)
 
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.addFragmentToList(nowPlayingFragment)
@@ -71,8 +66,6 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-
-
 
     class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 

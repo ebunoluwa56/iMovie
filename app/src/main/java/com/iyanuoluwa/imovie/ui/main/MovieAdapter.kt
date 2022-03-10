@@ -12,16 +12,13 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iyanuoluwa.imovie.R
+import com.iyanuoluwa.imovie.data.model.Movie
 import com.iyanuoluwa.imovie.ui.details.DetailsActivity
 
 class MovieAdapter(
-    var context: Context,
-    var titles: List<String>,
-    var imageList: List<String>,
-    var plot: List<String>,
-    var id: List<Int>
-) :
-    RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+    val context: Context,
+    var movies: MutableList<Movie>
+) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
@@ -31,14 +28,14 @@ class MovieAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.names.text = titles[position]
+        holder.names.text = movies[position].title
         val circularProgressDrawable = CircularProgressDrawable(context)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
 
         Glide.with(holder.images)
-            .load(imageList[position])
+            .load("https://image.tmdb.org/t/p/w500${movies[position].posterPath}")
             .apply(
                 RequestOptions().placeholder(circularProgressDrawable)
                     .error(R.drawable.no_image)
@@ -47,9 +44,7 @@ class MovieAdapter(
             .into(holder.images)
     }
 
-    override fun getItemCount(): Int {
-        return titles.size
-    }
+    override fun getItemCount() = movies.size
 
 
     inner class ViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
@@ -60,10 +55,13 @@ class MovieAdapter(
             itemView.setOnClickListener {
                 val position: Int = adapterPosition
                 val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra("image", imageList[position])
-                intent.putExtra("plot", plot[position])
-                intent.putExtra("title", titles[position])
-                intent.putExtra("id", id[position])
+                intent.putExtra(
+                    "image",
+                    "https://image.tmdb.org/t/p/w500${movies[position].posterPath}"
+                )
+                intent.putExtra("plot", movies[position].overview)
+                intent.putExtra("title", movies[position].title)
+                intent.putExtra("id", movies[position].id)
                 context.startActivity(intent)
             }
         }
