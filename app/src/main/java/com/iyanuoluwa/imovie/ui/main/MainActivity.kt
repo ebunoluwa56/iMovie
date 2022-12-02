@@ -11,7 +11,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.ui.common.NaughtyPager
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
@@ -47,12 +49,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
 
             }
 
             override fun onPageSelected(position: Int) {
-                when(position) {
+                when (position) {
                     0 -> bottomNav.menu.findItem(R.id.nowPlaying).isChecked = true
                     1 -> bottomNav.menu.findItem(R.id.upcoming).isChecked = true
                     2 -> bottomNav.menu.findItem(R.id.popular).isChecked = true
@@ -69,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-        private val fragmentList : MutableList<Fragment>  = ArrayList()
+        private val fragmentList: MutableList<Fragment> = ArrayList()
 
         override fun getCount(): Int {
             return fragmentList.size

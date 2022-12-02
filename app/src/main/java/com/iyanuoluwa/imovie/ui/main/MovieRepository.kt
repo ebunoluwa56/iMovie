@@ -7,8 +7,9 @@ import com.iyanuoluwa.imovie.data.model.Movie
 import com.iyanuoluwa.imovie.data.remote.MovieApi
 import com.iyanuoluwa.imovie.util.Resource
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class MovieRepository(
+class MovieRepository @Inject constructor(
     private val movieDao: MovieDao,
     private val movieApi: MovieApi
 ) {
@@ -26,9 +27,11 @@ class MovieRepository(
         movieDao.updateMovie(movie)
     }
 
-    suspend fun getMovie(id : Int) : Movie = movieDao.getMovie(id)
+    suspend fun getMovie(id: Int): Movie = movieDao.getMovie(id)
 
-    private suspend fun getMoviesLocal(category: Category): List<Movie> = movieDao.getMovies(category)
+    private suspend fun getMoviesLocal(category: Category): List<Movie> =
+        movieDao.getMovies(category)
+
     private suspend fun getMoviesNetwork(page: Int, limit: Int, category: Category) =
         movieApi.getMovies(category.categoryName, page, limit).movies
 
@@ -43,7 +46,7 @@ class MovieRepository(
 //            if (page == 1) insertMovies(movies)
             emit(Resource.Success(movies))
         } catch (e: Exception) {
-            emit(Resource.Failure<List<Movie>>(e))
+            emit(Resource.Failure(e))
         }
     }
 }
