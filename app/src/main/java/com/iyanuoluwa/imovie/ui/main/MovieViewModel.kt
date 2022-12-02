@@ -1,7 +1,11 @@
 package com.iyanuoluwa.imovie.ui.main
 
 import android.database.sqlite.SQLiteConstraintException
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.iyanuoluwa.imovie.data.model.Cast
 import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.data.model.Movie
 import com.iyanuoluwa.imovie.util.Resource
@@ -12,10 +16,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(
     private val movieRepository: MovieRepository
-): ViewModel() {
+) : ViewModel() {
 
     fun getMovies(page: Int, limit: Int, category: Category): LiveData<Resource<List<Movie>>> {
         return movieRepository.getMovies(page, limit, category).asLiveData()
+    }
+
+    fun getCast(id: Int): LiveData<Resource<List<Cast>>> {
+        return movieRepository.getCast(id).asLiveData()
     }
 
     private suspend fun mergeCategoriesAndUpdate(movieWithNewCategory: Movie) {
