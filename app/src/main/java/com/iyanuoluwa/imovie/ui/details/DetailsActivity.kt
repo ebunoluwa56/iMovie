@@ -1,32 +1,30 @@
 package com.iyanuoluwa.imovie.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iyanuoluwa.imovie.R
-import com.iyanuoluwa.imovie.data.model.Credits
-import com.iyanuoluwa.imovie.data.remote.MovieApi
-import com.iyanuoluwa.imovie.util.BASE_URL
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.iyanuoluwa.imovie.ui.main.MovieViewModel
+import com.iyanuoluwa.imovie.util.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailsActivity : AppCompatActivity() {
 
     private var plotTextView: TextView? = null
     private var titleTextView: TextView? = null
     private var movieImageView: ImageView? = null
     private var movieImageViewBackground: ImageView? = null
-    private var imageList = mutableListOf<String>()
-    private var castList = mutableListOf<String>()
-    private var recyclerView: RecyclerView? =null
+    private var castAdapter: CastAdapter? = null
+    private var recyclerView: RecyclerView? = null
+    private val movieViewModel: MovieViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +33,8 @@ class DetailsActivity : AppCompatActivity() {
         titleTextView = findViewById(R.id.movie_title)
         movieImageView = findViewById(R.id.movie_details_image)
         movieImageViewBackground = findViewById(R.id.movie_details_image_background)
+
+        getCredits()
 
         val plot = intent.getStringExtra("plot")
         plotTextView?.text = plot
@@ -48,44 +48,26 @@ class DetailsActivity : AppCompatActivity() {
         Glide.with(this)
             .load(image)
             .into(movieImageViewBackground!!)
-        getCredits()
-
         recyclerView = findViewById(R.id.cast_recycler_view)
-    }
-
-    private fun setUpRecyclerView() {
-        recyclerView?.adapter = CastAdapter(this, castList, imageList)
-    }
-
-    private fun addToList(name: String, image: String) {
-        imageList.add(image)
-        castList.add(name)
+        recyclerView?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        castAdapter = CastAdapter(this, mutableListOf())
+        recyclerView?.adapter = castAdapter
     }
 
     private fun getCredits() {
         val id = intent.getIntExtra("id", 0)
-        val api = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MovieApi::class.java)
-
-        val data = api.getMovieCredits(id)
-        data.enqueue(object : Callback<Credits?> {
-            override fun onResponse(call: Call<Credits?>, response: Response<Credits?>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val responseBody = response.body()!!
-                    for (credits in responseBody.cast) {
-                        Log.i("DetailsActivity", "Cast = ${credits.name}")
-                        addToList(credits.name, "https://image.tmdb.org/t/p/w500${credits.profilePath}")
-                    }
+        movieViewModel.getCast(id).observe(this) {
+            when (it) {
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    castAdapter?.cast?.addAll(it.data)
+                    recyclerView?.adapter?.notifyDataSetChanged()
                 }
-                setUpRecyclerView()
+                is Resource.Failure -> {
+                    Toast.makeText(this, it.throwable.message!!, Toast.LENGTH_LONG).show()
+                }
             }
-
-            override fun onFailure(call: Call<Credits?>, t: Throwable) {
-                Log.e("DetailsActivity", t.toString())
-            }
-        })
+        }
     }
 }

@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.iyanuoluwa.imovie.MovieApplication
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.data.model.Movie
 import com.iyanuoluwa.imovie.util.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
 
     private var textView: TextView? = null
@@ -32,9 +33,7 @@ class MovieFragment : Fragment() {
 
     private lateinit var adapter: MovieAdapter
 
-    private val movieViewModel: MovieViewModel by viewModels {
-        ViewModelFactory((requireActivity().application as MovieApplication).repository)
-    }
+    private val movieViewModel: MovieViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +52,7 @@ class MovieFragment : Fragment() {
         getMovies(page, limit, category)
 
         nestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-            if (scrollY == (v?.getChildAt(0)?.measuredHeight)?.minus(v.measuredHeight)) {
+            if (scrollY == (v.getChildAt(0)?.measuredHeight)?.minus(v.measuredHeight)) {
                 page++
                 getMovies(page, limit, category)
             }
