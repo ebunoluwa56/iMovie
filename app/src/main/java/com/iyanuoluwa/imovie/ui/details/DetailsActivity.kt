@@ -74,7 +74,7 @@ class DetailsActivity : AppCompatActivity() {
                     recyclerView?.adapter?.notifyDataSetChanged()
                 }
                 is Resource.Failure -> {
-                    Toast.makeText(this, it.throwable.message!!, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Unable to fetch details", Toast.LENGTH_LONG).show()
                 }
             }
         }
