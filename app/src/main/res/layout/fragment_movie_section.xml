@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context=".NowPlaying">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/playing"
-        android:text="Now Playing"
-        android:textSize="18sp"
+        android:id="@+id/section_title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:textColor="@color/teal_200"
         android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:background="@color/design_default_color_primary_variant" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view_now"

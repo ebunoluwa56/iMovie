@@ -1,6 +1,8 @@
 package com.iyanuoluwa.imovie.ui.details
 
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -33,6 +35,13 @@ class DetailsActivity : AppCompatActivity() {
         titleTextView = findViewById(R.id.movie_title)
         movieImageView = findViewById(R.id.movie_details_image)
         movieImageViewBackground = findViewById(R.id.movie_details_image_background)
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = this.window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.navigationBarColor = this.resources.getColor(com.google.android.material.R.color.design_default_color_primary_variant)
+        }
 
         getCredits()
 

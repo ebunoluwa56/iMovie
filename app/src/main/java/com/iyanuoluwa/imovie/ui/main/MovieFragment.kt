@@ -40,7 +40,7 @@ class MovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_now_playing, container, false)
+        return inflater.inflate(R.layout.fragment_movie_section, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class MovieFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
-        textView = view.findViewById(R.id.playing)
+        textView = view.findViewById(R.id.section_title)
         playingRecyclerView = view.findViewById(R.id.playing_recycler_view)
         gridLayoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
         nestedScrollView = view.findViewById(R.id.scroll_view_now)

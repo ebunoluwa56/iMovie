@@ -1,7 +1,9 @@
 package com.iyanuoluwa.imovie.ui.main
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,6 +14,7 @@ import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.ui.common.NaughtyPager
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -37,6 +40,13 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 3
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = this.window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.navigationBarColor = this.resources.getColor(com.google.android.material.R.color.design_default_color_primary_variant)
+        }
 
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

@@ -4,25 +4,25 @@
 
     <item android:id="@+id/nowPlaying"
         android:title="Now Playing"
-        android:icon="@drawable/ic_baseline_play_arrow_24"
+        android:icon="@drawable/ic_baseline_play_circle_filled_24"
         app:showAsAction="ifRoom"/>
 
     <item
         android:title="Upcoming"
         android:id="@+id/upcoming"
-        android:icon="@drawable/ic_baseline_vertical_align_top_24"
+        android:icon="@drawable/ic_baseline_local_movies_24"
         app:showAsAction="ifRoom"/>
 
     <item
         android:title="Popular"
         android:id="@+id/popular"
-        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:icon="@drawable/ic_baseline_movie_filter_24"
         app:showAsAction="ifRoom"/>
 
     <item
         android:title="Top Rated"
         android:id="@+id/topRated"
-        android:icon="@drawable/ic_baseline_north_24"
+        android:icon="@drawable/ic_baseline_live_tv_24"
         app:showAsAction="ifRoom"/>
 
 
