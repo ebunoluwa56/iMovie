@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.iyanuoluwa.imovie.R
 import com.iyanuoluwa.imovie.data.model.Category
 import com.iyanuoluwa.imovie.data.model.Movie
@@ -40,7 +40,7 @@ class MovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_now_playing, container, false)
+        return inflater.inflate(R.layout.fragment_movie_section, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class MovieFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
-        textView = view.findViewById(R.id.playing)
+        textView = view.findViewById(R.id.section_title)
         playingRecyclerView = view.findViewById(R.id.playing_recycler_view)
         gridLayoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
         nestedScrollView = view.findViewById(R.id.scroll_view_now)
@@ -103,7 +103,7 @@ class MovieFragment : Fragment() {
 
                 is Resource.Failure -> {
                     progressBar?.visibility = View.GONE
-                    Snackbar.make(textView!!, it.throwable.message!!, Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Unable to fetch movies", Toast.LENGTH_LONG).show()
                 }
             }
         }
